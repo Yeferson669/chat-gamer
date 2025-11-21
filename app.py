@@ -3,7 +3,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Estructura: { "fortnite": [ {user, text, time} ] }
 messages = {}
 
 
