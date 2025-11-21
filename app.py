@@ -5,8 +5,9 @@ import os
 
 app = Flask(__name__)
 
-# Render automáticamente define DATABASE_URL en las variables de entorno
-DATABASE_URL = os.environ.get("DATABASE_URL")
+# Usar la variable de entorno DATABASE_URL de Render
+# Si quieres probar localmente, puedes reemplazar por tu URL externa directamente
+DATABASE_URL = os.environ.get("DATABASE_URL") or "postgresql://chat_gamer_user:0GKauaXj0GE6nHngYDB1vAWZ2BRgFVSK@dpg-d4fudu0gjchc73dlll30-a.oregon-postgres.render.com/chat_gamer"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
