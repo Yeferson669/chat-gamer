@@ -5,12 +5,9 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-
 <div class="container">
     <h1>🎮 Chat Gamer</h1>
-
     <input id="user" placeholder="Tu Nickname Gamer">
-
     <select id="room" onchange="load()">
         <option value="fortnite">Fortnite</option>
         <option value="lol">League of Legends</option>
@@ -18,18 +15,14 @@
         <option value="csgo">CSGO</option>
         <option value="minecraft">Minecraft</option>
     </select>
-
     <div id="chat" class="chat-box"></div>
-
     <input id="text" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter'){send()}">
     <button onclick="send()">Enviar</button>
 </div>
 
-
 <script>
 function load() {
     let room = document.getElementById("room").value;
-
     fetch(`/api/messages?room=${room}`)
         .then(res => res.json())
         .then(msgs => {
@@ -51,10 +44,8 @@ function send() {
             text: document.getElementById("text").value
         })
     });
-
     document.getElementById("text").value = "";
 }
 </script>
-
 </body>
 </html>
