@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Gamer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎮 Chat Gamer</h1>
+
+    <input id="user" placeholder="Tu Nickname Gamer">
+
+    <select id="room" onchange="load()">
+        <option value="fortnite">Fortnite</option>
+        <option value="lol">League of Legends</option>
+        <option value="valorant">Valorant</option>
+        <option value="csgo">CSGO</option>
+        <option value="minecraft">Minecraft</option>
+    </select>
+
+    <div id="chat" class="chat-box"></div>
+
+    <input id="text" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter'){send()}">
+    <button onclick="send()">Enviar</button>
+</div>
+
+
+<script>
+function load() {
+    let room = document.getElementById("room").value;
+
+    fetch(`/api/messages?room=${room}`)
+        .then(res => res.json())
+        .then(msgs => {
+            document.getElementById("chat").innerHTML =
+                msgs.map(m => `<p><b>${m.user}</b> <span class="time">${m.time}</span><br>${m.text}</p>`).join("");
+            document.getElementById("chat").scrollTop = 999999;
+        });
+}
+
+setInterval(load, 1200);
+
+function send() {
+    fetch("/api/messages", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            user: document.getElementById("user").value,
+            room: document.getElementById("room").value,
+            text: document.getElementById("text").value
+        })
+    });
+
+    document.getElementById("text").value = "";
+}
+</script>
+
+</body>
+</html>
